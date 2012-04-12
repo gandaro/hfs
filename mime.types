@@ -1,0 +1,19 @@
+# Documents
+text/plain          txt
+text/html           html htm
+# Images
+image/png           png
+image/gif           gif
+image/jpeg          jpg jpeg
+# Music
+audio/ogg           oga
+audio/mpeg          mp3
+audio/x-flac        flac
+audio/wave          wav
+audio/x-ms-wma      wma
+# Video
+video/ogg           ogv
+video/mp4           mp4
+video/avi           avi
+# Unknown Media
+application/ogg     ogg
