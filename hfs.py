@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2011  Marcel Hellkamp (parts of `showfile')
+# Copyright (c) 2011  Marcel Hellkamp (parts of `showfile' / `static_file')
 # Copyright (c) 2011, 2012  Jakob Kramer
 # See LICENSE for details
 
@@ -24,10 +24,13 @@ def showfile(request, args):
     root = os.path.abspath(FILEDIR) + os.sep
     path = os.path.abspath(os.path.join(root, args['path'].strip('/\\')))
 
-    if not os.path.exists(path) or not os.path.isfile(path):
+    if not path.startswith(root):
+        raise Forbidden()
+
+    elif not os.path.exists(path) or not os.path.isfile(path):
         raise NotFound()
 
-    elif not path.startswith(root) or not os.access(path, os.R_OK):
+    elif not os.access(path, os.R_OK):
         raise Forbidden()
 
     mimetype = MIMETYPES.get(os.path.splitext(path)[1].lower(),
@@ -38,7 +41,7 @@ def showfile(request, args):
 
 
 URL_MAP = Map([
-    Rule("/<path:path>", endpoint=showfile)
+    Rule('/<path:path>', endpoint=showfile)
 ])
 
 
